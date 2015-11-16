@@ -19,6 +19,14 @@ fi
 name=$1
 author_name=$(git config --global user.name)
 author_email=$(git config --global user.email)
+
+if [[ -z "$author_name" || -z "$author_email" ]]; then
+	echo "Please set your git global user details"
+	echo "Run following commands"
+	echo "git config --global user.name <your name>"
+	echo "git config --global user.email <your email>"
+fi
+
 author="$author_name <$author_email>"
 
 cp -r "$UTIL_INSTALL_DIR"/scaffold-element ./"$name"
