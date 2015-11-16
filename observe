@@ -2,18 +2,31 @@
 
 if (($# < 1)); then
 	cat <<EOF
-usage: observe [list of element dirs]
+usage: observe --out-dir=<dir> <list of input dirs>
+
+--out-dir: the directory to which changes in an element will be copied
 EOF
 fi
 
-files=()
+dirs=()
 
-for dir in "${@:1}"; do
+for opt in "${@:1}"; do
+	case "$opt" in
+		--out-dir=*)
+			out_dir="${opt#*=}"
+		;;
+		*)
+			dirs+=("$opt")
+		;;
+	esac
+done
+
+for dir in "${dirs[@]}"; do
 	pushd "$dir" >/dev/null
 
 	name="${dir##*/}"
 	git ls-files | grep -hvE '(^\.)|(/\.)|(README)' | while read -r line; do
-		printf "%50s => %s\n" "$dir/$line" "../elements/bower_components/$name/$line"
+		printf "%50s => %s\n" "$dir/$line" "$out_dir/$name/$line"
 	done
 
 	popd >/dev/null
