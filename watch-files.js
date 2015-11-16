@@ -25,9 +25,9 @@ lines.on('data', function(line) {
 });
 
 lines.on('end', function() {
-	// files.forEach(function(file) {
-	// 	console.log(`${file} => ${pathsMap[file]}`);
-	// });
+	files.forEach(function(file) {
+		console.log(`${file} => ${pathsMap[file]}`);
+	});
 
 	watchFiles();
 });
