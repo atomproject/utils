@@ -24,11 +24,12 @@ lines.on('data', function(line) {
 	}
 });
 
-// lines.on('end', watchFiles);
 lines.on('end', function() {
 	files.forEach(function(file) {
 		console.log(`${file} => ${pathsMap[file]}`);
-	})
+	});
+
+	watchFiles();
 });
 
 function watchFiles() {
