@@ -43,4 +43,4 @@ for dir in "${dirs[@]}"; do
 	popd >/dev/null
 done > paths.txt
 
-node index.js
+node "$UTIL_INSTALL_DIR"/watch-files.js

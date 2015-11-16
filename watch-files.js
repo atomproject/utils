@@ -25,9 +25,9 @@ lines.on('data', function(line) {
 });
 
 lines.on('end', function() {
-	files.forEach(function(file) {
-		console.log(`${file} => ${pathsMap[file]}`);
-	});
+	// files.forEach(function(file) {
+	// 	console.log(`${file} => ${pathsMap[file]}`);
+	// });
 
 	watchFiles();
 });
@@ -38,13 +38,14 @@ function watchFiles() {
 	watcher.on('change', onFileChange);
 }
 
-function onFileChange(path) {
-	var src = fs.createReadStream(path);
-	var dest = fs.createWriteStream(pathsMap[path].dest);
+//random
+function onFileChange(file) {
+	var src = fs.createReadStream(file);
+	var dest = fs.createWriteStream(pathsMap[file]);
 
-	//if path contains bower.json then run bower update
+	//if file contains bower.json then run bower update
 	//in the output dir
-	console.log(`changed: ${path}`);
+	console.log(`changed: ${file}`);
 
 	src.pipe(dest);
 }

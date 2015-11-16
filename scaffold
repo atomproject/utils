@@ -1,0 +1,32 @@
+#!/usr/bin/env bash
+
+set -e
+shopt -s extglob
+shopt -s globstar
+shopt -s nullglob
+
+print_help() {
+	cat <<EOF
+usage: scaffold <element name>
+EOF
+	exit 1
+}
+
+if (($# < 1)); then
+	print_help
+fi
+
+name=$1
+author_name=$(git config --global user.name)
+author_email=$(git config --global user.email)
+author="$author_name <$author_email>"
+
+cp -r "$UTIL_INSTALL_DIR"/scaffold-element ./"$name"
+
+for file in ./"$name"/**/*
+do
+	if [[ -f "$file" ]]; then
+		sed -i "s:%name%:$name:g" "$file"
+		sed -i "s:%author%:$author:g" "$file"
+	fi
+done

@@ -1,0 +1,42 @@
+#!/usr/bin/env bash
+
+print_help() {
+	cat <<EOF
+usage: clone-org <org name> --out-dir=<dir>
+
+--out-dir: dir to clone the org in
+EOF
+	exit 1
+}
+
+if (($# < 1)); then
+	print_help
+fi
+
+out_dir="."
+
+for opt in "${@:1}"; do
+	case "$opt" in
+		--out-dir=*)
+			out_dir="${opt#*=}"
+		;;
+		--help)
+			print_help
+		;;
+		*)
+			org_name="$opt"
+		;;
+	esac
+done
+
+org_dir="$out_dir/$org_name"
+
+if ! [ -d "$org_dir" ]; then
+	mkdir -p "$org_dir"
+fi
+
+node "$UTIL_INSTALL_DIR"/list-org-repos.js "$org_name" > repos.txt
+
+while read -r repo; do
+	git clone "git@github.com:/$org_name/$repo.git" "$org_dir/$repo"
+done <"repos.txt"

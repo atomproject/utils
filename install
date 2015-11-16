@@ -1,0 +1,13 @@
+#!/usr/bin/env bash
+
+if ! [[ -f ~/.bashrc ]]; then
+	touch ~/.bashrc
+fi
+
+echo "" >> ~/.bashrc
+echo "# added by $(pwd)/install" >> ~/.bashrc
+echo "UTIL_INSTALL_DIR=\"$(pwd)\"" >> ~/.bashrc
+echo 'PATH=$PATH:'"\"$(pwd)\"" >> ~/.bashrc
+
+export UTIL_INSTALL_DIR="$(pwd)"
+PATH="$PATH:$(pwd)"
