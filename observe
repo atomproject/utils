@@ -11,11 +11,12 @@ files=()
 for dir in "${@:1}"; do
 	pushd "$dir" >/dev/null
 
-	 while read -r line; do
-		files+=("$dir/$line")
-	done < <(git ls-files | grep -hvE '(^\.)|(/\.)|(README)')
+	name="${dir##*/}"
+	git ls-files | grep -hvE '(^\.)|(/\.)|(README)' | while read -r line; do
+		printf "%50s => %s\n" "$dir/$line" "../elements/bower_components/$name/$line"
+	done
 
 	popd >/dev/null
-done
+done > paths.txt
 
-chokidar "${files[@]}" | { IFS=: read -ra change; echo "${change[1]}"; }
+node index.js

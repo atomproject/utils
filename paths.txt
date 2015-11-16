@@ -1,9 +1,0 @@
-../github/t-button/bower.json
-../github/t-button/demo/index.html
-../github/t-button/demo/metadata.html
-../github/t-button/design-doc.md
-../github/t-button/index.html
-../github/t-button/property.json
-../github/t-button/t-button.css
-../github/t-button/t-button.html
-../github/t-button/test/index.html
