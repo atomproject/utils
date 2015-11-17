@@ -1,0 +1,14 @@
+#!/usr/bin/env bash
+
+for dir in *
+do
+	if ! [[ -d "$dir" ]]; then
+		continue
+	fi
+
+	pushd "$dir"
+
+	eval "$1"
+
+	popd
+done
