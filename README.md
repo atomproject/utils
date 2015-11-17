@@ -21,12 +21,12 @@ need to be installed. The installtion procedure is straightforward and is mentio
 
 ## observe
 This command takes a list of directories and copies the changes made to files in those
-directories to anothe location.
+directories to another location.
 
 Only the files which are a result of `git ls-files` command will be observed since
 files ignored by git are of no interest to us.
 
-The command syntax can be known by runnin `observe`
+The command syntax can be known by running `observe`
 
 ## scaffold
 This command creates a new element in the directory in which it is run.
