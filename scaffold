@@ -36,5 +36,8 @@ do
 	if [[ -f "$file" ]]; then
 		sed -i "s:%name%:$name:g" "$file"
 		sed -i "s:%author%:$author:g" "$file"
+		echo "scaffold: $file"
 	fi
 done
+
+mv ./"$name"/el-name.html ./"$name/$name".html
