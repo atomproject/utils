@@ -11,3 +11,5 @@ echo 'PATH=$PATH:'"\"$(pwd)\"" >> ~/.bashrc
 
 export UTIL_INSTALL_DIR="$(pwd)"
 PATH="$PATH:$(pwd)"
+
+npm install
