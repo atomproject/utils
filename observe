@@ -7,6 +7,13 @@ print_help() {
 usage: observe -o=<dir> <list of input dirs>
 
 -o: the directory to which changes in an element will be copied
+
+EXAMPLES:
+# Observe t-button element in atomElements directory
+observe -o='../my-application/bower_components' atomElements/t-button
+
+# Observe all elements in atomElements directory
+observe -o='../my-application/bower_components' atomElements/t-*
 EOF
 	exit 1
 }

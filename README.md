@@ -35,11 +35,15 @@ It then replaces the occurences of `%name%` in all files of directory `scaffold-
 The `%author%` field in `bower.json` file comes from global git config remember to set them
 properly.
 
+The command syntax can be known by running `scaffold`
+
 ## clone-org
 Clones a organization, it takes the organization name as parameter and another optional
 parameter to specify the output location of clone. The repos in the organization will
 be cloned at the provided location or if the location is not provided then at current
 location inside a directory with the name as _org name_.
+
+The command syntax can be known by running `clone-org`
 
 # Notes
 The `git checkout` doesn't trigger file system change event and because of that
