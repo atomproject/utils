@@ -6,9 +6,10 @@ do
 		continue
 	fi
 
-	pushd "$dir"
+	pushd "$dir" &>/dev/null
 
-	eval "$1"
+	cmd="$(sed -r "s:\{\}:$dir:gi" <<<"$1")";
+	eval "$cmd"
 
 	popd &>/dev/null
 done
