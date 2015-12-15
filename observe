@@ -37,6 +37,9 @@ for opt in "${@:1}"; do
 		-o=*)
 			out_dir="$(strip_terminal_slash "${opt#*=}")"
 		;;
+		--no-watch)
+			watch="no-watch"
+		;;
 		*)
 			dirs+=("$opt")
 		;;
@@ -60,4 +63,7 @@ for dir in "${dirs[@]}"; do
 done > paths.txt
 
 echo "Watching for changes"
-node "$UTIL_INSTALL_DIR"/watch-files.js
+
+if [[ -z "$watch" ]]; then
+	node "$UTIL_INSTALL_DIR"/watch-files.js
+fi

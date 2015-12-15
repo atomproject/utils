@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-for dir in *
+for dir in t-*
 do
 	if ! [[ -d "$dir" ]]; then
 		continue
@@ -10,5 +10,5 @@ do
 
 	eval "$1"
 
-	popd
+	popd &>/dev/null
 done
