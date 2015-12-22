@@ -22,11 +22,29 @@ function flattenVersions(arr) {
 	return versions;
 }
 
-function getRelease(dep) {
-	var release = dep.pkgMeta._release;
-	var commit = dep.pkgMeta._resolution.commit;
+function get(obj, path) {
+	var parts = path.split('.');
+	var value = obj;
+	var key;
 
-	if (commit.indexOf(release) !== -1) {
+	for (key of parts) {
+		if (typeof value !== 'object') {
+			return ;
+		}
+
+		value = value[key];
+	}
+
+	if (value !== obj) {
+		return value;
+	}
+}
+
+function getRelease(dep) {
+	var release = get(dep, 'pkgMeta._release');
+	var commit = get(dep, 'pkgMeta._resolution.commit');
+
+	if (commit && commit.indexOf(release) !== -1) {
 		return commit;
 	}
 

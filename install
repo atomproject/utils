@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 
 if ! [[ -f ~/.bashrc ]]; then
+	echo 'Creating ~/.bashrc file'
 	touch ~/.bashrc
 fi
 

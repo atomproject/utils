@@ -1,0 +1,30 @@
+{
+  "name": "bower_test",
+  "authors": [
+    "Ajinkya Tejankar <tejankarajinkya@gmail.com>"
+  ],
+  "description": "",
+  "main": "",
+  "moduleType": [],
+  "license": "MIT",
+  "homepage": "",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "resolutions": {
+    "iron-icons": "1.0.3"
+  },
+  "dependencies": {
+    "t-table": "atomelements/t-table#master",
+    "t-stepper": "atomelements/t-stepper#master",
+    "normalize.css": "*",
+    "t-button": "../atom-elements/t-button",
+    "paper-button": "polymerelements/paper-button#*",
+    "random": "../list-deps.sh",
+    "backup": "../backup"
+  }
+}
