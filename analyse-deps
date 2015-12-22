@@ -1,0 +1,41 @@
+#!/usr/bin/env node
+
+'use strict;'
+
+var fs = require('fs');
+var depFile = fs.readFileSync('el-deps.json', 'utf-8');
+var dependencies = [];
+
+depFile = JSON.parse(depFile);
+
+function resolveDeps(deps) {
+	var innerVersions = [];
+	var keys;
+
+	if (deps.missing) {
+		console.log('missing deps');
+		process.exit(1);
+	}
+
+	deps = deps.dependencies;
+	keys = Object.keys(deps);
+
+	keys.forEach(key => {
+		var dep = deps[key], newDep = {};
+		var meta = dep.pkgMeta || {};
+
+		newDep.edp = dep.endpoint;
+		newDep.upd = dep.update;
+		newDep._re = meta._release;
+		newDep.res = meta._resolution;
+
+		dependencies.push(newDep);
+
+		resolveDeps(dep);
+	});
+}
+
+resolveDeps(depFile);
+dependencies = JSON.stringify(dependencies, null, 4);
+
+fs.writeFileSync('el-out-deps.json', dependencies);

@@ -1,0 +1,97 @@
+#!/usr/bin/env node
+
+'use strict;'
+
+var fs = require('fs');
+var bower = require('bower');
+var bowerFile = fs.readFileSync('bower.json', 'utf-8');
+var origBowerFile = JSON.parse(bowerFile);
+var getDeps = bower.commands.list({json: true});
+
+function flattenVersions(arr) {
+	var versions = {};
+
+	arr.forEach(function(item) {
+		var keys = Object.keys(item);
+
+		keys.forEach(function(key) {
+			versions[key] = item[key];
+		});
+	});
+
+	return versions;
+}
+
+function getRelease(dep) {
+	var release = dep.pkgMeta._release;
+	var commit = dep.pkgMeta._resolution.commit;
+
+	if (commit.indexOf(release) !== -1) {
+		return commit;
+	}
+
+	return release;
+}
+
+function resolveDeps(deps) {
+	var versions = {}, keys;
+	var innerVersions = [];
+
+	deps = deps.dependencies;
+	keys = Object.keys(deps);
+
+	keys.forEach(key => {
+		var dep = deps[key];
+		var name, source, release;
+
+		if (dep.missing) {
+			var msg = 'All dependencies have not been installed.\n' +
+				'       Please run `bower install` to install the dependencies.';
+
+			throw new Error(msg);
+		}
+
+		name = dep.endpoint.name;
+		source = dep.endpoint.source;
+		release = getRelease(dep);
+
+		if (bowerFile.resolutions[name]) {
+			bowerFile.resolutions[name] = release;
+		}
+
+		if (release) {
+			source += '#' + release;
+		}
+
+		versions[name] = source;
+
+		innerVersions.push(resolveDeps(dep));
+	});
+
+	innerVersions.unshift(versions);
+
+	return flattenVersions(innerVersions);
+}
+
+bowerFile = JSON.parse(bowerFile);
+
+getDeps.on('end', function (deps) {
+	var versions;
+	var outText;
+
+	try {
+		versions = resolveDeps(deps);
+	} catch (e) {
+		console.log(e.stack);
+		process.exit(1);
+	}
+
+	bowerFile.dependencies = versions;
+	outText = JSON.stringify(bowerFile, null, 4);
+
+	fs.writeFileSync('bower.lock.json', outText);
+});
+
+getDeps.on('error', function(err) {
+	console.log(err);
+});
