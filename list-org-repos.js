@@ -1,3 +1,7 @@
+#!/usr/bin/env node
+
+'use strict;'
+
 var rp = require('request-promise');
 var chalk = require('chalk');
 

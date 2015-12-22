@@ -1,3 +1,7 @@
+#!/usr/bin/env node
+
+'use strict;'
+
 var chokidar = require('chokidar');
 var exec = require('child_process').exec;
 var path = require('path');
