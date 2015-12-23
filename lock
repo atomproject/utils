@@ -7,6 +7,14 @@ var bower = require('bower');
 var bowerFile = fs.readFileSync('bower.json', 'utf-8');
 var origBowerFile = JSON.parse(bowerFile);
 var getDeps = bower.commands.list({json: true});
+var help;
+
+if (help = process.argv[1] && (help === '-h' || help === '--help')) {
+	console.log('usage: lock [-h|--help]');
+	console.log('');
+	console.log('Run this command from the root of any project using bower.');
+	console.log('');
+}
 
 function flattenVersions(arr) {
 	var versions = {};

@@ -69,3 +69,11 @@ provided to it. It is meant to be used alongside `clone-org`, the command which 
 all the repos in an organization.
 
 The command syntax can be known by running `for-each`
+
+# lock
+
+This command locks the state of dependencies for an application and outputs
+a file called `bower.lock.json`. You can use this file to install the dependencies
+instead of `bower.json` file to replicate the state.
+
+Run the command `lock` from the root any application which uses `bower`.
