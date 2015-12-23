@@ -1,5 +1,47 @@
 #!/usr/bin/env bash
 
+print_help() {
+	cat <<EOF
+usage: for-each [--help|-h] '<commands>'
+
+commands can use a special string \`{}\`, which will be replaced with
+the name of the current component.
+
+examples:
+# single  command example
+for-each 'git status'
+
+# multiple command example
+for-each 'bower version path && git push origin --tags'
+
+# conditional commands and use of \`{}\`
+for-each 'if ! { git tag -l | grep "0.0.0"; } &> /dev/null; then echo "{}"; fi'
+
+# a more complex example that shows the repo status more specifically
+for-each 'printf "%-30s: %s\n" "{}" "$(git status | grep -oiE "untracked|modified|deleted" | head -n 1)"'
+
+EOF
+	exit 1
+}
+
+if (($# < 1)); then
+	print_help
+fi
+
+for opt in "${@:1}"; do
+	case "$opt" in
+		--help)
+			print_help
+		;;
+		-h)
+			print_help
+		;;
+		*)
+			cmd="$opt"
+		;;
+	esac
+done
+
 for dir in t-*
 do
 	if ! [[ -d "$dir" ]]; then
@@ -8,8 +50,8 @@ do
 
 	pushd "$dir" &>/dev/null
 
-	cmd="$(sed -r "s:\{\}:$dir:gi" <<<"$1")";
-	eval "$cmd"
+	ex_cmd="$(sed -r "s:\{\}:$dir:gi" <<<"$cmd")";
+	eval "$ex_cmd"
 
 	popd &>/dev/null
 done
