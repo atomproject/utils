@@ -62,7 +62,7 @@ location inside a directory with the name as _org name_.
 
 The command syntax can be known by running `clone-org`
 
-# for-each
+## for-each
 
 This command will go into each component in the current directory and run the commands
 provided to it. It is meant to be used alongside `clone-org`, the command which clones
@@ -70,7 +70,7 @@ all the repos in an organization.
 
 The command syntax can be known by running `for-each`
 
-# lock
+## lock
 
 This command locks the state of dependencies for an application and outputs
 a file called `bower.lock.json`. You can use this file to install the dependencies
