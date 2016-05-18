@@ -8,7 +8,7 @@ fi
 echo "" >> ~/.bashrc
 echo "# added by the script at $(pwd)/install" >> ~/.bashrc
 echo "export UTIL_INSTALL_DIR=\"$(pwd)\"" >> ~/.bashrc
-echo 'PATH=$PATH:'"\"$(pwd)\"" >> ~/.bashrc
+echo 'PATH="$PATH:'"$(pwd)\"" >> ~/.bashrc
 echo "##### script end ######" >> ~/.bashrc
 echo "" >> ~/.bashrc
 

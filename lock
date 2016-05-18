@@ -81,7 +81,7 @@ function resolveDeps(deps) {
 		source = dep.endpoint.source;
 		release = getRelease(dep);
 
-		if (bowerFile.resolutions[name]) {
+		if (bowerFile.resolutions && bowerFile.resolutions[name]) {
 			bowerFile.resolutions[name] = release;
 		}
 

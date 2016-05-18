@@ -35,8 +35,6 @@ if ! [ -d "$org_dir" ]; then
 	mkdir -p "$org_dir"
 fi
 
-node "$UTIL_INSTALL_DIR"/list-org-repos.js "$org_name" > repos.txt
-
 while read -r repo; do
 	git clone "git@github.com:/$org_name/$repo.git" "$org_dir/$repo"
-done <"repos.txt"
+done < <(node "$UTIL_INSTALL_DIR"/list-org-repos.js "$org_name")
