@@ -1,7 +1,4 @@
 #!/usr/bin/env node
-
-'use strict;'
-
 var fs = require('fs');
 var bower = require('bower');
 var bowerFile = fs.readFileSync('bower.json', 'utf-8');
@@ -76,6 +73,12 @@ function resolveDeps(deps) {
 
 			throw new Error(msg);
 		}
+
+    if (dep.linked) {
+      var msg = 'Cannot run lock if a component is linked: ' + dep.endpoint.name;
+
+			throw new Error(msg);
+    }
 
 		name = dep.endpoint.name;
 		source = dep.endpoint.source;
