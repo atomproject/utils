@@ -12,7 +12,7 @@ var requestOptions = {
     }
 };
 var apiEndPoints = {
-	listOrgRepos: `/orgs/${orgName}/repos`
+	listOrgRepos: `/orgs/${orgName}/repos?per_page=100`
 }
 var baseUrl = 'https://api.github.com';
 
